@@ -69,7 +69,7 @@ async def on_message(message):
     else:
         pass
 
-client.run('MTE3MTg0NjI5MTI2NTk2MjAxNw.G0wpcj.4BMhiBFN-WB4FMf2uLD46ka8R-BBGoXumeJB0A')
+client.run('Token')
 
 if __name__ == '__main__':
     pass
