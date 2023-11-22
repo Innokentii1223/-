@@ -1,9 +1,11 @@
+# Импорты
 import discord
 import random
 import webbrowser
 from bs4 import BeautifulSoup
 import requests as r
 import pandas as pd
+
 p = ("Арктические льды стремительно тают. К 2040 году ожидается полное отсутствие льда в летний период.",
      "В национальном парк Глейшер, США на сегодняшний день осталось лишь 25 ледников вместо 150, которые были там в 1\
 910 году.", "В связи с потеплением и загрязнением океанов, массово начали гибнуть коралловые рифы.",
@@ -12,16 +14,16 @@ p = ("Арктические льды стремительно тают. К 2040
 льшее количество углекислого газа, чем могут поглотить растения и океаны.", "Уровень моря поднялся на 17-18 см за \
 последние 100 лет, эти данные превышают показатели за предыдущие 2000 лет. Повышение уровня моря несет угрозу для \
 людей, живущих в прибрежных районах")
+#Создача бота
 intents = discord.Intents.default()
-
 intents.message_content = True
-
 client = discord.Client(command_prefix='$', intents=discord.Intents.default())
+# Загрузка сайта
 response = r.get('https://news.un.org/ru/tags/globalnoe-poteplenie')
 print(response)
 bs = BeautifulSoup(response.text, "lxml")
 
-
+# Парсер
 def parser():
     temp = bs.find_all('h2', 'node__title')
     print(temp)
@@ -38,7 +40,7 @@ def parser():
     print(df_news)
     return df_news
 
-
+# Логика бота
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
@@ -58,7 +60,7 @@ async def on_message(message):
         elif not rf:
             webbrowser.open_new('https://ria.ru/keyword_globalnoe_poteplenie/')
     elif message.content.startswith('Насколько опасна глобальное потепление'):
-        await message.channel.send(file=discord.File('мцпмц/qGuns8v-WhwP8GnUQjPLggba1c9nzsnEX0aPM-iL4I4.gif'))
+        await message.channel.send(file=discord.File('qGuns8v-WhwP8GnUQjPLggba1c9nzsnEX0aPM-iL4I4.gif'))
     elif message.content.startswith('Новости о глобальном потеплении'):
         t = parser()
         await message.channel.send(t)
